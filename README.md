@@ -10,6 +10,9 @@
 # TESTING THE SOLUTION
 1. run go test -v ./...
 
+# BENCHMARD THE SOLUTION
+1. run go test ./...  -run=Benchmark -bench=.
+
 # TO RUN THE SOLUTION 
 1. Start a new terminal 
 2. At the termnial --> go run main.go <OPTIONS>

@@ -18,6 +18,18 @@ func TestNumberOfUsers(t *testing.T) {
 
 }
 
+func benchmarkNumberOfUsers(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		queryLogs, _ := internal.NewQueryLogs()
+		results := queryLogs.NumberOfUsers()
+		fmt.Print(results)
+	}
+
+}
+func BenchmarkNumberOfUsers(b *testing.B) {
+	benchmarkNumberOfUsers(b)
+}
+
 func TestNumberOfUploadsLargerThan(t *testing.T) {
 	queryLogs, err := internal.NewQueryLogs()
 	results := queryLogs.NumberOfUploadsLargerThan(85, "upload")
@@ -27,12 +39,36 @@ func TestNumberOfUploadsLargerThan(t *testing.T) {
 
 }
 
+func benchmarkNumberOfUploadsLargerThan(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		queryLogs, _ := internal.NewQueryLogs()
+		results := queryLogs.NumberOfUploadsLargerThan(85, "upload")
+		fmt.Print(results)
+	}
+}
+
+func BenchmarkNumberOfUploadsLargerThan(b *testing.B) {
+	benchmarkNumberOfUploadsLargerThan(b)
+}
+
 func TestNumberOfDownloadsLargerThan(t *testing.T) {
 	queryLogs, err := internal.NewQueryLogs()
 	results := queryLogs.NumberOfUploadsLargerThan(50, "download")
 	if results != 137 || err != nil {
 		t.Errorf("Output %v not equal to expected %v", results, 137)
 	}
+}
+
+func benchmarkNumberOfDownloadsLargerThan(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		queryLogs, _ := internal.NewQueryLogs()
+		results := queryLogs.NumberOfUploadsLargerThan(50, "download")
+		fmt.Print(results)
+	}
+}
+
+func BenchmarkNumberOfDownloadsLargerThan(b *testing.B) {
+	benchmarkNumberOfDownloadsLargerThan(b)
 }
 
 func TestNumberOfUploadsPerUserPerDate(t *testing.T) {
@@ -46,6 +82,17 @@ func TestNumberOfUploadsPerUserPerDate(t *testing.T) {
 		t.Errorf("Output %v not equal to expected %v", results, 10)
 	}
 }
+func benchmarkNumberOfUploadsPerUserPerDate(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		queryLogs, _ := internal.NewQueryLogs()
+		parsedDate, _ := time.Parse(utils.InputdateFormat, "Apr-19-2020")
+		results := queryLogs.NumberOfUploadsPerUserPerDate("rosannaM", parsedDate, "download")
+		fmt.Print(results)
+	}
+}
+func BenchmarkNumberOfUploadsPerUserPerDate(b *testing.B) {
+	benchmarkNumberOfUploadsPerUserPerDate(b)
+}
 
 func TextNumberOfDownsPerUserPerDate(t *testing.T) {
 	queryLogs, err2 := internal.NewQueryLogs()
@@ -58,7 +105,18 @@ func TextNumberOfDownsPerUserPerDate(t *testing.T) {
 		t.Errorf("Output %v not equal to expected %v", results, 0)
 	}
 }
+func benchmarkNumberOfDownsPerUserPerDate(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		queryLogs, _ := internal.NewQueryLogs()
+		parsedDate, _ := time.Parse(utils.InputdateFormat, "Apr-19-2020")
+		results := queryLogs.NumberOfUploadsPerUserPerDate("rosannaM", parsedDate, "upload")
+		fmt.Print(results)
+	}
+}
 
+func BenchmarkNumberOfDownsPerUserPerDate(b *testing.B) {
+	benchmarkNumberOfDownsPerUserPerDate(b)
+}
 func ExampleGetDataBankLocation() {
 	queryLogs, _ := internal.NewQueryLogs()
 	results := queryLogs.NumberOfUploadsLargerThan(50, "download")
